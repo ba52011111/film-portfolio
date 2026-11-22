@@ -13,14 +13,15 @@ const videos = [
     meta: "JINS｜活動紀錄攝影、空拍",
   },
   {
-    key: "street", id: "EPzW-jOIsQQ", format: "wide",
-    title: "聚會帶另一半",
-    meta: "街訪系列",
+    key: "jins-florist", id: "8M6_Bvpd92w", format: "wide",
+    title: "花藝師 張孟妍｜用花瓣接住每顆墜落的心",
+    meta: "JINS 職人系列｜站內播放 Shorts",
+    preview: { id: "Bk4cxNaaqEY", format: "short" },
   },
   {
-    key: "jins-megaport", id: "DYWVNjZd7W4", format: "wide",
-    title: "高雄的風，吹來一場青春夢",
-    meta: "JINS × 大港開唱｜活動紀錄攝影",
+    key: "xinhua-metal", id: "lDsvBt8NfT8", format: "wide",
+    title: "鑫華金屬 形象影片",
+    meta: "品牌形象｜拍攝、空拍、剪輯",
   },
   {
     key: "winston", id: "imdtbYXsr8c", format: "short",
@@ -28,8 +29,8 @@ const videos = [
     meta: "華晟中醫",
   },
   {
-    key: "beauty", id: "8TVr_WBUMb4", format: "short",
-    title: "暖宮八髎養護 漢方精油按摩",
+    key: "beauty-brows", id: "dV6zvr_40hM", format: "short",
+    title: "醒來即眉美 專業紋繡在這",
     meta: "華韻美妍館",
   },
   {
@@ -46,11 +47,13 @@ let trigger;
 
 function openVideo(video, button) {
   trigger = button;
-  const isShort = video.format === "short";
+  const playback = video.preview || video;
+  const isShort = playback.format === "short";
   dialog.classList.toggle("is-short", isShort);
   document.querySelector("#player-title").textContent = video.title;
-  document.querySelector("#player-format").textContent = isShort ? "Shorts" : "長影片";
-  youtubeLink.href = video.url || (isShort
+  document.querySelector("#player-format").textContent = video.preview ? "Shorts 試看" : isShort ? "Shorts" : "長影片";
+  youtubeLink.textContent = video.preview ? "在 YouTube 觀看長版" : "在 YouTube 觀看";
+  youtubeLink.href = video.url || (video.format === "short"
     ? "https://www.youtube.com/shorts/" + video.id
     : "https://www.youtube.com/watch?v=" + video.id);
 
@@ -58,7 +61,7 @@ function openVideo(video, button) {
   const params = new URLSearchParams({ autoplay: "1", playsinline: "1", rel: "0" });
   if (video.start) params.set("start", String(video.start));
   frame.title = video.title + "｜YouTube 播放器";
-  frame.src = "https://www.youtube-nocookie.com/embed/" + video.id + "?" + params;
+  frame.src = "https://www.youtube-nocookie.com/embed/" + playback.id + "?" + params;
   frame.referrerPolicy = "strict-origin-when-cross-origin";
   frame.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen";
   frame.allowFullscreen = true;
