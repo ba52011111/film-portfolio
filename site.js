@@ -29,8 +29,8 @@ const videos = [
     meta: "華晟中醫",
   },
   {
-    key: "beauty-brows", id: "dV6zvr_40hM", format: "short",
-    title: "醒來即眉美 專業紋繡在這",
+    key: "beauty-brows-technique", id: "p4BQ7vRukmY", format: "short",
+    title: "自信眉眼放光 專業紋繡技術",
     meta: "華韻美妍館",
   },
   {
