@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="theme-color" content="#101411">
+  <meta name="description" content="彭傑的影像作品集，收錄電影、品牌紀錄、街訪與 Shorts。">
+  <title>彭傑｜影像作品集</title>
+  <link rel="preload" href="./first-crush.webp" as="image">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./videos.js" defer></script>
+  <script src="./site.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#works">跳到精選作品</a>
+  <header class="top" id="top">
+    <div class="shell top-inner">
+      <a class="identity" href="#top">彭傑<span>影像製作</span></a>
+      <nav aria-label="網站導覽">
+        <a href="#works">精選作品</a>
+        <a href="#catalog">完整片單</a>
+        <a href="#about">關於我</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <img class="hero-art" src="./first-crush.webp" alt="" fetchpriority="high">
+      <div class="shell hero-inner">
+        <div class="hero-content">
+          <p class="hero-label">電影・品牌紀錄・社群影音</p>
+          <h1 id="hero-title">彭傑<span>影像作品集</span></h1>
+          <button class="hero-play" type="button" data-video="first-crush">
+            <span class="play-mark" aria-hidden="true"></span>播放《我的搖滾青春》預告
+          </button>
+        </div>
+        <p class="hero-caption"><strong>《我的搖滾青春》</strong><span>編劇・美術・後期製作</span></p>
+      </div>
+    </section>
+
+    <section id="works" class="works shell" aria-labelledby="works-title">
+      <div class="section-head">
+        <h2 id="works-title">精選作品</h2>
+        <div class="filters" role="group" aria-label="依影片格式篩選">
+          <button type="button" aria-pressed="true" data-filter="all">全部</button>
+          <button type="button" aria-pressed="false" data-filter="wide">長影片</button>
+          <button type="button" aria-pressed="false" data-filter="short">Shorts</button>
+        </div>
+      </div>
+      <p class="sr-only" aria-live="polite" id="filter-status"></p>
+
+      <div data-format="wide" class="works-group">
+        <h3>長影片</h3>
+        <div class="grid" id="wide-works"></div>
+      </div>
+      <div data-format="short" class="works-group">
+        <h3>Shorts</h3>
+        <div class="grid shorts-grid" id="short-works"></div>
+      </div>
+      <noscript><p>請開啟 JavaScript 以播放作品。也可在 YouTube 觀看<a href="https://www.youtube.com/watch?v=v0I2UOuVj-M">《我的搖滾青春》預告</a>。</p></noscript>
+    </section>
+
+    <section id="catalog" class="catalog shell" aria-labelledby="catalog-title">
+      <div class="catalog-head">
+        <h2 id="catalog-title">完整片單</h2>
+        <div class="catalog-tools">
+          <label class="sr-only" for="work-search">搜尋片名或系列</label>
+          <input id="work-search" type="search" placeholder="搜尋片名或系列" autocomplete="off">
+          <label class="sr-only" for="work-format">影片格式</label>
+          <select id="work-format">
+            <option value="all">所有格式</option>
+            <option value="wide">長影片</option>
+            <option value="short">Shorts</option>
+          </select>
+        </div>
+      </div>
+      <p id="catalog-status" class="catalog-status" aria-live="polite"></p>
+      <div id="catalog-groups"></div>
+    </section>
+
+    <section id="about" class="about" aria-labelledby="about-title">
+      <div class="shell about-inner">
+        <img src="./first-crush-stage.webp" alt="《我的搖滾青春》的樂團演出場景" width="704" height="396" loading="lazy">
+        <div>
+          <h2 id="about-title">關於彭傑</h2>
+          <p>國立臺灣藝術大學電影學系畢業。參與電影短片、品牌活動紀錄、街訪與社群影音製作，工作涵蓋編劇、美術、攝影與後期。</p>
+          <p>畢業製作《我的搖滾青春》獲邀於 2023 桃園電影節展映，並入圍韓國酷兒影展、北京酷兒影展及印度浦那電影節。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="shell footer"><span>彭傑｜影像作品集</span><a href="#top">回到頁首</a></footer>
+  <dialog id="video-dialog" aria-labelledby="player-title">
+    <div class="dialog-head">
+      <div>
+        <p class="dialog-kicker" id="player-format"></p>
+        <h2 id="player-title"></h2>
+      </div>
+      <button type="button" id="close-player" aria-label="關閉播放器" autofocus>×</button>
+    </div>
+    <div class="screen" id="player-screen"></div>
+    <div class="dialog-foot">
+      <a id="youtube-link" target="_blank" rel="noopener">在 YouTube 觀看</a>
+    </div>
+  </dialog>
+</body>
+</html>
