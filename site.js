@@ -145,7 +145,6 @@ function renderCatalog() {
   for (const [series, entries] of groups) {
     const group = document.createElement("details");
     group.className = "catalog-group";
-    group.open = Boolean(term);
     const heading = document.createElement("summary");
     const seriesName = document.createElement("span");
     seriesName.textContent = series;
@@ -161,6 +160,21 @@ function renderCatalog() {
       button.type = "button";
       button.className = "catalog-play";
       button.setAttribute("aria-label", "播放 " + video.title);
+      const thumbnail = document.createElement("span");
+      thumbnail.className = "clip-thumbnail";
+      thumbnail.setAttribute("aria-hidden", "true");
+      const image = document.createElement("img");
+      const imagePath = "https://i.ytimg.com/vi/" + video.id + "/";
+      image.alt = "";
+      image.width = 88;
+      image.height = 50;
+      image.loading = "lazy";
+      image.decoding = "async";
+      image.dataset.src = imagePath + "mqdefault.jpg";
+      image.addEventListener("error", () => {
+        if (image.src.endsWith("/mqdefault.jpg")) image.src = imagePath + "hqdefault.jpg";
+        else image.hidden = true;
+      });
       const play = document.createElement("span");
       play.className = "play-mark";
       play.setAttribute("aria-hidden", "true");
@@ -177,12 +191,23 @@ function renderCatalog() {
       const kind = document.createElement("span");
       kind.className = "clip-format";
       kind.textContent = video.format === "short" ? "Shorts" : "長影片";
-      button.append(play, info, kind);
+      thumbnail.append(image, play);
+      button.append(thumbnail, info, kind);
       button.addEventListener("click", () => openVideo(video, button));
       item.append(button);
       list.append(item);
     }
     group.append(heading, list);
+    function loadThumbnails() {
+      if (!group.open) return;
+      for (const image of list.querySelectorAll("img[data-src]")) {
+        image.src = image.dataset.src;
+        delete image.dataset.src;
+      }
+      group.removeEventListener("toggle", loadThumbnails);
+    }
+    group.addEventListener("toggle", loadThumbnails);
+    group.open = Boolean(term);
     view.append(group);
   }
   catalog.replaceChildren(view);
